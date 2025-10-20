@@ -5,8 +5,26 @@
   <title>CI/CDのテスト</title>
 </head>
 <body>
-  <h1>こんにちは、CI/CD！</h1>
+  <!-- ↓ h1タグにidを追加します -->
+  <h1 id="main-heading">こんにちは、CI/CD！</h1>
   <p>このページは GitHub Actions によって自動的にデプロイされました。</p>
-  <p>わざと書き方間違えてみた(終了タグをつけてない)
+
+  <!-- ↓ クリックするためのボタンを追加します -->
+  <button id="change-text-btn">メッセージを変える</button>
+
+  <!-- ↓ ここからJavaScriptのコードです -->
+  <script>
+    // HTMLの中からidが「change-text-btn」の要素（ボタン）を探してくる
+    const button = document.getElementById('change-text-btn');
+    // HTMLの中からidが「main-heading」の要素（h1の見出し）を探してくる
+    const heading = document.getElementById('main-heading');
+
+    // ボタンがクリックされたら、{}の中の処理を実行する
+    button.addEventListener('click', () => {
+      heading.textContent = 'JavaScriptで変更しました！( ^)o(^ )';
+    });
+  </script>
+  <!-- ↑ ここまでJavaScriptのコードです -->
+
 </body>
 </html>
