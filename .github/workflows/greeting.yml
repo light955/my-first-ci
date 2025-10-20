@@ -1,7 +1,7 @@
 # ワークフローの名前
-name: あいさつCI
+name: WebサイトをビルドしてデプロイするCI/CD
 
-# 実行のきっかけ (mainブランチにpushされた時)
+# 実行のきっかけ
 on:
   push:
     branches:
@@ -9,14 +9,32 @@ on:
 
 # 実行するお仕事
 jobs:
-  # 「greeting-job」という名前のお仕事
-  greeting-job:
-    # Ubuntuの最新環境で実行します
+  # 「deploy-job」という名前のお仕事
+  deploy-job:
+    # 実行に必要な権限を設定
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    # Ubuntuの最新環境で実行
     runs-on: ubuntu-latest
     # 具体的な手順
     steps:
-      - name: あいさつを表示するステップ
-        run: echo "CI/CDの世界へようこそ！"
+      # ① リポジトリのコードをチェックアウトする
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: 完了メッセージを表示するステップ
-        run: echo "自動実行が成功しました！"
+      # ② GitHub Pages用の設定
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      # ③ Webサイトのファイルを成果物としてアップロード
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      # ④ 成果物をGitHub Pagesにデプロイ
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
