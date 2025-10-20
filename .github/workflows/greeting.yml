@@ -1,1 +1,22 @@
+# ワークフローの名前
+name: あいさつCI
 
+# 実行のきっかけ (mainブランチにpushされた時)
+on:
+  push:
+    branches:
+      - main
+
+# 実行するお仕事
+jobs:
+  # 「greeting-job」という名前のお仕事
+  greeting-job:
+    # Ubuntuの最新環境で実行します
+    runs-on: ubuntu-latest
+    # 具体的な手順
+    steps:
+      - name: あいさつを表示するステップ
+        run: echo "CI/CDの世界へようこそ！"
+
+      - name: 完了メッセージを表示するステップ
+        run: echo "自動実行が成功しました！"
