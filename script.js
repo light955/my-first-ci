@@ -4,6 +4,6 @@ const button = document.getElementById('change-text-btn');
 const heading = document.getElementById('main-heading');
 
 // ★★★ わざと綴りを間違えてみる ★★★
-buttonn.addEventListener('click', () => {
+button.addEventListener('click', () => {
   heading.textContent = 'JavaScriptで変更しました！( ^)o(^ )';
 });
