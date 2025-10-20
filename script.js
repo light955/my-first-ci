@@ -7,4 +7,3 @@ const heading = document.getElementById('main-heading');
 buttonn.addEventListener('click', () => {
   heading.textContent = 'JavaScriptで変更しました！( ^)o(^ )';
 });
-```    *   「Commit new file」で保存します。
