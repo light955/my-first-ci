@@ -1,40 +1,38 @@
-# ワークフローの名前
 name: WebサイトをビルドしてデプロイするCI/CD
 
-# 実行のきっかけ
 on:
   push:
     branches:
       - main
 
-# 実行するお仕事
 jobs:
-  # 「deploy-job」という名前のお仕事
   deploy-job:
-    # 実行に必要な権限を設定
     permissions:
       contents: read
       pages: write
       id-token: write
-    # Ubuntuの最新環境で実行
     runs-on: ubuntu-latest
-    # 具体的な手順
     steps:
-      # ① リポジトリのコードをチェックアウトする
       - name: Checkout
         uses: actions/checkout@v4
 
-      # ② GitHub Pages用の設定
+      # ▼▼▼ ここからが追加した「検査官」のステップ ▼▼▼
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: npm install
+      - name: Lint JavaScript
+        run: npm run lint
+      # ▲▲▲ ここまでが「検査官」のステップ ▲▲▲
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-
-      # ③ Webサイトのファイルを成果物としてアップロード
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
-
-      # ④ 成果物をGitHub Pagesにデプロイ
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
